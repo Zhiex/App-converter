@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Rate Converter</title>
+</head>
+<body>
+    <h1>Currency to PHP Converter</h1>
+    <h2>Rate Today </h2>
+    <table border="1" cellspacing="0">
+        <tr>
+            <td>Currency:</td>
+            <td>
+       
+            <select id="currency" onchange="updateRate()">
+                    <option value="KWD">Kuwaiti Dinar (KWD)</option>
+                    <option value="SAR">Saudi Riyal (SAR)</option>
+                    <option value="AED">UAE Dirham (AED)</option>
+                    <option value="QAR">Qatari Riyal (QAR)</option>
+                    <option value="OMR">Omani Rial (OMR)</option>
+                    <option value="BHD">Bahraini Dinar (BHD)</option>
+                    <option value="IQD">Iraqi Dinar (IQD)</option>
+                    <option value="EGP">Egyptian Pound (EGP)</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Amount:</td>
+            <td>
+                <input id="amount" type="number" value="10" step="0.01">
+            </td>
+        </tr>
+        <tr>
+            <td>Rate Today:</td>
+            <td>
+                <input id="rate" type="number" readonly>
+            </td>
+        </tr>
+        <tr>
+            <td>PHP Value:</td>
+            <td>
+                <input id="php" type="number" readonly
+                    style="font-size: large; font-weight: bold;">
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>
+                <button onclick="convert();">Convert</button>
+            </td>
+        </tr>
+    </table>
+    <script>
+        const exchangeRates = {
+            "KWD": 187.85, 
+            "SAR": 15.07,  
+            "AED": 16.40, 
+            "QAR": 15.52,  
+            "OMR": 147.64,
+            "BHD": 161.75, 
+            "IQD": 0.0035,
+            "EGP": 1.86    
+        };
+
+        function updateRate() {
+            let selectedCurrency = document.getElementById('currency').value;
+            document.getElementById('rate').value = exchangeRates[selectedCurrency].toFixed(2);
+        }
+        function convert() {
+            let amount = parseFloat(document.getElementById('amount').value);
+            let rate = parseFloat(document.getElementById('rate').value);
+            let phpValue = amount * rate;
+            document.getElementById('php').value = phpValue.toFixed(2);
+        }
+        // Set initial exchange rate
+        updateRate();
+    </script>
+</body>
+</html>
+
+

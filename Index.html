@@ -3,54 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Rate Converter</title>
+    <title>Rate Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .container {
+            display: none;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            width: 50%;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.5s ease-in-out;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 80%;
+        }
+        td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background: #305de4;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #5278d6;
+        }
+        .intro {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            opacity: 1;
+            transition: opacity 1.5s;
+        }
+    </style>
 </head>
 <body>
-    <h1>Currency to PHP Converter</h1>
-    <h2>Rate Today </h2>
-    <table border="1" cellspacing="0">
-        <tr>
-            <td>Currency:</td>
-            <td>
-       
-            <select id="currency" onchange="updateRate()">
-                    <option value="KWD">Kuwaiti Dinar (KWD)</option>
-                    <option value="SAR">Saudi Riyal (SAR)</option>
-                    <option value="AED">UAE Dirham (AED)</option>
-                    <option value="QAR">Qatari Riyal (QAR)</option>
-                    <option value="OMR">Omani Rial (OMR)</option>
-                    <option value="BHD">Bahraini Dinar (BHD)</option>
-                    <option value="IQD">Iraqi Dinar (IQD)</option>
-                    <option value="EGP">Egyptian Pound (EGP)</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>Amount:</td>
-            <td>
-                <input id="amount" type="number" value="10" step="0.01">
-            </td>
-        </tr>
-        <tr>
-            <td>Rate Today:</td>
-            <td>
-                <input id="rate" type="number" readonly>
-            </td>
-        </tr>
-        <tr>
-            <td>PHP Value:</td>
-            <td>
-                <input id="php" type="number" readonly
-                    style="font-size: large; font-weight: bold;">
-            </td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td>
-                <button onclick="convert();">Convert</button>
-            </td>
-        </tr>
-    </table>
+    <div class="intro" id="intro">Welcome! Currency Converter...</div>
+    
+    <div class="container" id="converter">
+        <h1>Currency to PHP Converter</h1>
+        <h2>Rate Today</h2>
+        <table>
+            <tr>
+                <td>Currency:</td>
+                <td>
+                    <select id="currency" onchange="updateRate()">
+                        <option value="KWD">Kuwaiti Dinar (KWD)</option>
+                        <option value="SAR">Saudi Riyal (SAR)</option>
+                        <option value="AED">UAE Dirham (AED)</option>
+                        <option value="QAR">Qatari Riyal (QAR)</option>
+                        <option value="OMR">Omani Rial (OMR)</option>
+                        <option value="BHD">Bahraini Dinar (BHD)</option>
+                        <option value="IQD">Iraqi Dinar (IQD)</option>
+                        <option value="EGP">Egyptian Pound (EGP)</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Amount:</td>
+                <td><input id="amount" type="number" value="10" step="0.01"></td>
+            </tr>
+            <tr>
+                <td>Rate Today:</td>
+                <td><input id="rate" type="number" readonly></td>
+            </tr>
+            <tr>
+                <td>PHP Value:</td>
+                <td><input id="php" type="number" readonly style="font-size: large; font-weight: bold;"></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><button onclick="convert();">Convert</button></td>
+            </tr>
+        </table>
+    </div>
+    
     <script>
         const exchangeRates = {
             "KWD": 187.85, 
@@ -67,16 +110,25 @@
             let selectedCurrency = document.getElementById('currency').value;
             document.getElementById('rate').value = exchangeRates[selectedCurrency].toFixed(2);
         }
+
         function convert() {
             let amount = parseFloat(document.getElementById('amount').value);
             let rate = parseFloat(document.getElementById('rate').value);
             let phpValue = amount * rate;
             document.getElementById('php').value = phpValue.toFixed(2);
         }
+
+       
+        setTimeout(() => {
+            document.getElementById('intro').style.opacity = 0;
+            setTimeout(() => {
+                document.getElementById('intro').style.display = 'none';
+                document.getElementById('converter').style.display = 'block';
+            }, 1500);
+        }, 2000);
+
         // Set initial exchange rate
         updateRate();
     </script>
 </body>
 </html>
-
-
